@@ -63,7 +63,7 @@ app.get("/pwa/send", (req, res) => {
       {
         data: {
           title: message,
-          body: "Push message: "+ message,
+          body: "Greeting from server!",
         },
         to: "/topics/andaica",
       }
