@@ -1,6 +1,6 @@
 const express = require("express");
 const util = require("./utils");
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -45,4 +45,29 @@ app.post("/user/login", (req, res) => {
       errors: [],
     });
   }
+});
+
+// demo send PWA message to topic
+app.get("/pwa/send", (req, res) => {
+  const message = util.makeRandomGreeting();
+  util
+    .makeAPIPost(
+      "https://fcm.googleapis.com/fcm/send",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "key=AAAAS-dKI_k:APA91bGKBR4NQSlqehLnLp2WzDkmpk4WkbbYSEavxcPltmVRsuZ-8MlVnc13B4dQlc2H8cBiE0gs_Rh2MJog7O9QVmZFtVQPUAzFW5_vGomgCk-tSbOOz_bGP8EyQUJ2gHp0fvcoByC6",
+        },
+      },
+      {
+        data: {
+          title: message,
+          body: "Push message: "+ message,
+        },
+        to: "/topics/andaica",
+      }
+    )
+    .then((data) => res.send("OK"))
+    .catch((error) => res.send(error));
 });
