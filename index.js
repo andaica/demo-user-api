@@ -1,6 +1,7 @@
 const express = require("express");
 const util = require("./utils");
 const cors = require("cors");
+const background = require("./background");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -9,6 +10,9 @@ app.use(express.json());
 app.use(cors());
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+background.startBackgroundInterval("http://localhost:8000/pwa/send", 10000);
+console.log("Start background send pwa message");
 
 app.get("/", (req, res) => {
   res.send(`Hello world`);

@@ -34,4 +34,7 @@ module.exports = {
   makeAPIPost(url, config, data) {
     return axios.post(url, data, config);
   },
+  makeAPIGet(url, config) {
+    return axios.get(url, config);
+  },
 };
